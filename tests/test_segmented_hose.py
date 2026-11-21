@@ -118,6 +118,15 @@ def main():
                 check(f"{label}: next ball {verb} at clearance {clearance}", empty == want_empty,
                       "empty" if empty else "they overlap")
 
+        # The example: four segments, each sitting in the last's socket without touching it.
+        r = subprocess.run([openscad, "--hardwarnings", "--export-format", "binstl", "-o", stl,
+                            os.path.join(ROOT, "examples", "chain.scad")], capture_output=True, text=True)
+        parts = solids(stl) if r.returncode == 0 else []
+        top = max((hi[2] for lo, hi in parts), default=0)
+        want = 3 * 12 * 0.85 + 18.7  # three default pitches, then one default segment's height
+        check("examples/chain.scad", len(parts) == 4 and abs(top - want) < 0.01,
+              f"{len(parts)} solid(s), {top:.2f} tall; want 4, {want:g}" if parts else r.stderr.strip()[:110])
+
         for label, params, message in [
             # A socket as big as the ball always keeps it; a loose one cut low lets it out.
             ("refuses a mouth the ball falls out of", {"bottom_cut_factor": 0.55, "clearance": 0.5}, "would fall out"),
