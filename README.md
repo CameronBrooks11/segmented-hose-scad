@@ -31,6 +31,7 @@ segmented_hose_segment(coupling_diameter = 12, bore = 6, clearance = 0.1);
   and the width of the socket's mouth.
 - `segments` in the Customizer previews a straight chain.
 - From another file, set `$fn` yourself: a `use`d file's own `$fn` doesn't reach its modules.
+  `examples/chain.scad` builds a chain that way.
 
 A segment is refused, with a message, if its bore leaves no wall in the ball, or if the socket's
 mouth would be as wide as the ball, which would then fall out.
@@ -43,9 +44,11 @@ Print segments upright, socket down.
 warnings treated as errors and checks that it's one solid of its outside size, standing on z = 0,
 and that the socket's mouth is narrower than the ball. It then sets a second segment one pitch
 above the first and checks that, at a clearance of 0.2 mm, its ball sits in the socket without
-overlapping it, and that at -0.2 mm it does overlap. It also checks the two refusals.
+overlapping it, and that at -0.2 mm it does overlap. It also checks the two refusals, and that
+the example renders as four separate segments of the chain's height.
 
-`just images` renders the picture above.
+`just check` checks the `.scad` files are formatted with [topiary](https://github.com/tweag/topiary)
+0.8.0; `just fmt` formats them. `just images` renders the picture above.
 
 ## Plans
 

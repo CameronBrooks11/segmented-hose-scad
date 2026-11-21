@@ -1,3 +1,6 @@
+# Test workflow for an OpenSCAD repo: runs `just test` on the OpenSCAD snapshot the
+# docs engine pins. Copy to .github/workflows/test.yml. See docs/openscad-repos.md.
+
 name: Test
 
 on:
